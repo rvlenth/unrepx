@@ -83,6 +83,9 @@ Russell V. Lenth
 }
 
 \examples{
+require("unrepx")
+
+PSE(shnkEff, method = "Lenth")
 }
 
 \keyword{design}

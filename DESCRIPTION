@@ -3,9 +3,11 @@ Type: Package
 Title: Analysis and graphics for unreplicated experiments
 Version: 1.0
 Date: 2017-06-26
-Author: Russell V. Lenth
-Maintainer: Russell Lenth <russell-lenth@uiowa.edu>
+Authors@R: c(person("Russell", "Lenth", role = c("aut", "cre", "cph"), 
+    email = "russell-lenth@uiowa.edu"))
+LazyData: yes
+BugReports: https://github.com/rvlenth/unrepx/issues
 Description: Provides half-normal plots, reference plots, and Pareto plots
     of effects from an unreplicated experiment, along with various PSE
-    measures, simulated reference distributions, and other tools
-License: GPL (>=3)
+    measures, simulated reference distributions, and other tools.
+License: GPL (>=2)

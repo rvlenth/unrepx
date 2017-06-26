@@ -53,7 +53,8 @@ Russell V. Lenth
 }
 
 \examples{
-require(VisID)
+require("unrepx")
+
 educ = swiss$Education
 names(educ) = abbreviate(row.names(swiss))
 dp <- dot.plot(educ, xlab = "Percent Post-Primary Education (Switzerland, 1888)")

@@ -1,3 +1,5 @@
+%    Copyright (c) 2017 Russell V. Lenth
+
 \name{ref.dist}
 \alias{ref.dist}
 \alias{eff.test}
@@ -44,6 +46,8 @@ Russell V. Lenth
 %% ~~objects to See Also as \code{\link{help}}, ~~~
 }
 \examples{
+require("unrepx")
+
 zahn15 <- ref.dist("Zahn", 15)
 eff.test(pdEff, refdist = zahn15)
 }

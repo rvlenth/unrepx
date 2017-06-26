@@ -45,7 +45,7 @@ Russell V. Lenth
 }
 
 \examples{
-require(VisID)
+require("unrepx")
 
 old.par <- par(mar = c(5, 5, 1, 1) + .1)
 daniel.paper(15)

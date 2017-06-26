@@ -50,7 +50,7 @@ Other ways of assessing active effects include a half-normal plot (\code{\link{h
 }
 
 \examples{
-require(VisID)
+require(unrepx)
 refplot(pdEff)
 
 # Batman livespdEffProcDev, ref = "sim", method = "Lenth", half = FALSE)

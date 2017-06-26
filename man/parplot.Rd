@@ -61,7 +61,8 @@ Other graphical ways of assessing active effects include a dot plot with a refer
 }
 
 \examples{
-require("VisID")
+require("unrepx")
+
 parplot(pdEff, top = 10)
 }
 

@@ -8,7 +8,7 @@
 
 \usage{
 hnplot(effects, ref = TRUE, half = TRUE, horiz = TRUE, method = "Zahn", 
-       a = 0.375, col = half, pch = 16, alpha, ID = FALSE, ...)
+       a = 0.375, col = half, pch = 16, ID = FALSE, alpha, ...)
 }
 
 \arguments{
@@ -55,7 +55,8 @@ Other ways of assessing active effects include a dot plot with a reference curve
 }
 
 \examples{
-require(VisID)
+require("unrepx")
+
 hnplot(pdEff)
 }
 

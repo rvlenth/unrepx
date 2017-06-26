@@ -1,3 +1,5 @@
+%    Copyright (c) 2017 Russell V. Lenth
+
 \name{pdEff}
 \alias{pdEff}
 \alias{bikeEff}
@@ -45,7 +47,8 @@ Box, GEP, Hunter, JS, and Hunter, WG (2005)
 New York: John Wiley & Sons
 }
 \examples{
-require(VisID)
+require("unrepx")
+
 parplot(bikeEff, method = "Zahn")
 
 opar <- par(mfcol = c(1,2))

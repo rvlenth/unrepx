@@ -1,3 +1,5 @@
+%    Copyright (c) 2017 Russell V. Lenth
+
 \name{unrepx-package}
 \alias{unrepx-package}
 \alias{unrepx}
