@@ -1,0 +1,151 @@
+### Various SE estimates ###
+
+# Accessor to all _pse functions
+PSE = function(effects, method = "Zahn") {
+    pse = get(paste0(method, "_pse"))
+    if (!is.null(setup <- attr(pse, "setup")))
+        setup(length(effects))
+    result = pse(effects)
+    names(result) = paste0(method, "_PSE")
+    result
+}
+
+
+# Scaled median - 1st step of Lenth PSE
+SMedian_pse = function(effects)
+    1.5 * median(abs(effects))
+
+# Root mean square
+RMS_pse = function(effects) {
+    sqrt(sum(effects^2))
+}
+
+# Lenth PSE
+Lenth_pse = function(effects) {
+    abseff = abs(effects)
+    s0 = 1.5 * median(abseff)
+    1.5 * median(abseff[abseff <= 2.5*s0])
+}
+
+# Dong93
+Dong_pse = function(effects) {
+    aeff = abs(effects)
+    thresh = 3.75 * median(aeff)
+    sel = aeff[aeff <= thresh]
+    sqrt(sum(sel^2) / length(sel))
+}
+
+# Daniel59
+Daniel_pse = function(effects) {
+    m = floor(.683*length(effects) + .5)
+    sort(abs(effects))[m]
+}
+
+# Juan & Pena 1992
+JuanPena_pse = function(effects) {
+    abseff = sort(abs(effects))
+    MAD = median(abseff)
+    top.n = length(effects)
+    while (top.n != (top.n <- max(which(abseff <= 3.5 * MAD))))
+        MAD = median(abseff[seq_len(top.n)])
+    MAD / .6578
+}
+
+# Zahn75 -- call Zahn.setup first
+Zahn_pse = function(effects) {
+    abs.c = sort(abs(effects))[seq_len(.Zahn.parm$m)] 
+    sum(.Zahn.parm$coef * abs.c)
+}
+
+# Weighted version of Zahn
+WZahn_pse = function(effects) {
+    abs.c = sort(abs(effects))[seq_len(.Zahn.parm$m)] 
+    sum(.Zahn.parm$wcoef * abs.c)
+}
+
+# Setup routine for Zahn methods. 
+# Improves efficiency in simulation methods
+.Zahn.setup = function(n.effects) {
+    m = floor(.683*n.effects + .5)
+    q = (seq_len(m) - .375) / (n.effects + .25)
+    z = qnorm((1 + q)/2)
+    w = m + .5 - seq_len(m)
+    w[w > .65 * m] = .65 * m
+    .Zahn.parm <<- list(m = m, 
+                        coef = z / sum(z^2),
+                        wcoef = w*z / sum(w*z^2))
+}
+attr(Zahn_pse, "setup") = function(n.effects) {
+    .Zahn.setup(n.effects)
+}
+attr(WZahn_pse, "setup") = function(n.effects) {
+    .Zahn.setup(n.effects)
+}
+
+
+
+# simulated reference dist of |t| and max |t|
+# returns a list:
+#    abst: dist of |t| under complete null (n x nsets matrix)
+#    max.abst: dist on max(|t|) (vector of length nsets)
+#    signature of form 'methodName_n.effects'
+# If called with save = TRUE, result is saved in global variable .Last.ref.dist
+ref.dist = function(method, n.effects, nsets, save = TRUE) {
+    psefun = get(paste0(method, "_pse"))
+    # run setup code, if any
+    if (!is.null(setup <- attr(psefun, "setup")))
+        setup(n.effects)
+    sig = paste(method, n.effects, sep="_")
+    if(missing(nsets))
+        nsets = ceiling(40000 / n.effects)
+    X = matrix(rnorm(n.effects * nsets), nrow = n.effects) # each column is a sample
+    abst = apply(X, 2, function(x) abs(x) / psefun(x))
+    max.abst = apply(abst, 2, max)
+    result = list(abst = abst, max.abst = max.abst, sig = sig)
+    class(result) = "eff_refdist"
+    if (save) .Last.ref.dist <<- result
+    result
+}
+
+print.eff_refdist = function(x, ...) {
+    info = strsplit(x$sig, "_")[[1]]
+    cat("Reference distribution of null effects\n")
+    cat(paste0("Method: '", info[1], "', # effects = ", info[2], 
+               ", # null samples = ", length(x$max.abst), "\n"))
+    invisible()
+}
+
+# Get last ref.dist if it matches, else generate a new one
+# May specify arguments in a list 'opts' rather than as arguments
+.getrefdist = function(n.effects, method, nsets, save = TRUE, opts) {
+    refdist = try(get(".Last.ref.dist"), silent = TRUE)
+    if (inherits(refdist, "try-error")) 
+        refdist = list(sig = "")
+    sig = paste(method, n.effects, sep = "_")
+    if(refdist$sig != sig) {
+        if (!missing(opts)) {
+            for (nm in names(opts))
+                assign(nm, opts[[nm]])
+        }
+        refdist = ref.dist(method, n.effects, nsets = nsets, save = save)
+    }
+    refdist
+}
+
+eff.test = function(effects, method = "Zahn", pareto = TRUE, refdist, save = TRUE) {
+    n.effects = length(effects)
+    if(pareto) {
+        ord = order(abs(effects))
+        effects = effects[rev(ord)]
+    }
+    pse = PSE(effects, method)
+    tval = effects / pse
+    if(missing(refdist))
+        refdist = .getrefdist(n.effects, method, save = save)
+    pval = sapply(abs(tval), function(abst) mean(refdist$abst >= abst))
+    spval = sapply(abs(tval), function(abst) mean(refdist$max.abst >= abst))
+    result = data.frame(effect = effects, PSE = pse, t.ratio = round(effects/pse, 3),
+               p.value = round(pval, 4), simult.pval = round(spval, 4))
+    names(result)[2] = paste0(method, "_PSE")
+    result
+}

@@ -1,0 +1,12 @@
+### exportPattern("^[[:alpha:]]+")
+
+# we'll export stuff explicitly
+export(daniel.paper, 
+       dot.plot, dot.id, dot.mod,
+       hnplot, parplot, refplot,
+       PSE, 
+       eff.test, ref.dist,
+       bikeEff, pdEff, shnkEff, shnkDisp, viseEff,
+       yates, gyates)
+
+S3method("print", "eff_refdist")

@@ -1,0 +1,89 @@
+%    Copyright (c) 2017 Russell V. Lenth                                %
+
+\name{PSE}
+\alias{PSE}
+
+\title{Pseudo standard error of effects}
+\description{Computes a pseudo standard error using any of a variety of built-in methods, or a user-supplied one.}
+\usage{
+PSE (effects, method = "Zahn")
+}
+
+\arguments{
+  \item{effects}{Numeric vector of effects or contrasts to be explored.}
+  \item{method}{Character value. The name of the method to be used. See Details.}
+}
+
+\details{
+The \code{PSE} function implements methods of estimating the standard error of effects estimates from unreplicated designs. The underlying assumption is that the effects all have the same variance, and that \dQuote{effect sparsity} assumption applies, whereby the majority of the effects are inactive and only a handful are active. The method may be any \dQuote{directed} method (as described in Hamada and Balakrishnan (1998).
+A number of built-in methods are available; see the list below.
+
+Users may easily write their own method. The method \code{"foo"} would be implemented by writing a function \code{foo_pse <- function(effects) \{ ... \}} and saving it where it can be found in the search path. If the function needs complex calculations depending only on \code{length(effects)}, it is best to write a function that sets up the needed coefficients, etc. ahead of time and saves them in, say, a uniquely named list in the global environment. This setup function is called automatically if it is supplied as a \code{"setup"} attribute; i.e., \code{attr(foo_pse, "setup") <- function(n.effects) \{ ... \}}. An example may be found by listing \code{VisID:::Zahn_pse}.
+}
+
+\value{
+A single numeric value, named in the style \code{method_PSE}.
+}
+
+\section{Built-in methods}{
+\describe{
+  \item{Daniel}{The 68.3rd quantile of the absolute effects. See Daniel (1959).}
+  \item{Dong}{The RMS method, applied after excluding all effects that exceed \code{2.5 * PSE(effects, "SMedian")} in absolute value. See Dong (19??).}
+  \item{JuanPena}{An iterated median method whereby we repeatedly calculate the median of the absolute effects that don't exceed 3.5 times the previous median, until it stabilizes. The estimate is the final median, divided by .6578. See Juan and Pena (1992).}
+  \item{Lenth}{The SMedian method, applied after excluding all effects that exceed \code{2.5 * PSE(effects, "SMedian")} in absolute value. See Lenth (1989).}
+  \item{RMS}{Square root of the mean of the squared effects. This is not a good PSE in the presence of active effects, but it is provided for sake of comparisons.}
+  \item{SMedian}{1.5 times the median of the absolute effects.}
+  \item{Zahn, WZahn}{The Zahn method is the slope of the least-squares line fitted to the first \eqn{m} points of \code{hnplot(effects, horiz = FALSE)}, where \code{m = floor(.683 * length(effects))}. (This line is fitted through the origin.) The WZahn method is an experimental version of Zahn's method, based on weighted least-squares with weights decreasing linearly from \eqn{m - .5} to \eqn{.5}.}
+  
+}}
+%end of "methods"
+
+\references{
+Daniel, C (1959)
+  Use of Half-Normal Plots in Interpreting Factorial Two-Level Experiments.
+  \emph{Technometrics}, 1(4), 311-341
+
+
+Dong, F (1993)
+  On the Identification of Active Contrasts in Unreplicated Fractional Factorials.
+  \emph{Statistica Sinica} 3, 209-217
+
+Hamada and Balakrishnan (1998)
+  Analyzing Unreplicated Factorial Experiments:
+  A Review With Some New Proposals.
+  \emph{Statistica Sinica} 8, 1-41
+
+Juan, J and Pena, D (1992)
+  A Simple Method to Identify Significant Effects in Unreplicated
+  Two-Level Factorial Designs. 
+  \emph{Communications in Statistics: Theory and Methods} 21, 1383-1403  
+
+Lenth, R (1989)
+  Quick and Easy Analysis of Unrelicated Factorials
+  \emph{Technometrics} 31(4), 469-473
+
+Zahn, D (1975)
+  Modifications of and Revised Critical Values for the Half-Normal Plot.
+  \emph{Technometrics} 17(2), 189-200
+}
+
+\author{
+Russell V. Lenth
+}
+
+
+
+
+%%%\note{}
+
+%% ~Make other sections like Warning with \section{Warning }{....} ~
+
+\seealso{
+%% ~~objects to See Also as \code{\link{help}}, ~~~
+}
+
+\examples{
+}
+
+\keyword{design}
+\keyword{htest}
