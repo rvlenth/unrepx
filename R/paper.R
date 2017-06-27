@@ -38,8 +38,8 @@ daniel.paper = function(n.effects = 15, linear = 0:40, a = .375,
     ranks = seq_len(n.effects)
     qtl = (ranks - a) / (n.effects + 1 - 2*a)
     y = scores = switch(type, 
-               half.normal = qnorm((1 + qtl)/2),
-               normal = qnorm(qtl))
+               half.normal = stats::qnorm((1 + qtl)/2),
+               normal = stats::qnorm(qtl))
     
     major = theme$major
     minor = theme$minor

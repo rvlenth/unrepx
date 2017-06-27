@@ -15,11 +15,11 @@ Effect examples
 Published or simulated examples of effects.
 }
 \usage{
-data("pdEff")
-data("bikeEff")
-data("viseEff")
-data("shnkEff")
-data("shnkDisp")
+pdEff
+bikeEff
+viseEff
+shnkEff
+shnkDisp
 }
 \format{
    Each is a named numeric vector of effect estimates from unreplicated experiments. 

@@ -205,7 +205,7 @@ dot.mod = function(env, ...) {
 
 # Reference plot
 refplot = function(effects, ref = TRUE, half = TRUE, method = "Zahn", 
-                   xlab, xlim, col = half, pch = 16, guides = FALSE, ID = FALSE, ...) {
+                   col = half, guides = FALSE, ID = FALSE, pch = 16, xlab, xlim, ...) {
     
     n.effects = length(effects)
     if(missing(xlab))

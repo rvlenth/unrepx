@@ -36,9 +36,8 @@ After a call to \code{dot.id} or (especially) to \code{dot.mod}, the graph may n
 }
 \value{
 \code{dot.plot} returns an environment that is used to hold information on points that are identified. \code{dot.id} modifies this environment; it (invisibly) returns the currently identified x values. (These are values from the original call to \code{dot.plot}, not their rounded values used in the plot.)}
-\references{
-%% ~put references to the literature/web site here ~
-}
+
+%%\references{}
 
 \author{
 Russell V. Lenth
@@ -48,9 +47,7 @@ Russell V. Lenth
 
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 
-\seealso{
-%% ~~objects to See Also as \code{\link{help}}, ~~~
-}
+%%\seealso{}
 
 \examples{
 require("unrepx")

@@ -22,11 +22,18 @@
 ### Various SE estimates ###
 
 # Accessor to all _pse functions
-PSE = function(effects, method = "Zahn") {
+PSE = function(effects, method = "Zahn", verbose = FALSE) {
     pse = get(paste0(method, "_pse"))
-    if (!is.null(setup <- attr(pse, "setup")))
-        setup(length(effects))
-    result = pse(effects)
+    if (!is.null(setup <- attr(pse, "setup"))) {
+        parm = setup(length(effects))
+        result = pse(effects, parm)
+        if(verbose) {
+            cat("Parameters used by PSE function:\n")
+            print(parm)
+        }
+    }
+    else 
+        result = pse(effects)
     names(result) = paste0(method, "_PSE")
     result
 }
@@ -34,7 +41,7 @@ PSE = function(effects, method = "Zahn") {
 
 # Scaled median - 1st step of Lenth PSE
 SMedian_pse = function(effects)
-    1.5 * median(abs(effects))
+    1.5 * stats::median(abs(effects))
 
 # Root mean square
 RMS_pse = function(effects) {
@@ -44,14 +51,14 @@ RMS_pse = function(effects) {
 # Lenth PSE
 Lenth_pse = function(effects) {
     abseff = abs(effects)
-    s0 = 1.5 * median(abseff)
-    1.5 * median(abseff[abseff <= 2.5*s0])
+    s0 = 1.5 * stats::median(abseff)
+    1.5 * stats::median(abseff[abseff <= 2.5*s0])
 }
 
 # Dong93
 Dong_pse = function(effects) {
     aeff = abs(effects)
-    thresh = 3.75 * median(aeff)
+    thresh = 3.75 * stats::median(aeff)
     sel = aeff[aeff <= thresh]
     sqrt(sum(sel^2) / length(sel))
 }
@@ -65,43 +72,42 @@ Daniel_pse = function(effects) {
 # Juan & Pena 1992
 JuanPena_pse = function(effects) {
     abseff = sort(abs(effects))
-    MAD = median(abseff)
+    MAD = stats::median(abseff)
     top.n = length(effects)
     while (top.n != (top.n <- max(which(abseff <= 3.5 * MAD))))
-        MAD = median(abseff[seq_len(top.n)])
+        MAD = stats::median(abseff[seq_len(top.n)])
     MAD / .6578
 }
 
 # Zahn75 -- call Zahn.setup first
-Zahn_pse = function(effects) {
-    abs.c = sort(abs(effects))[seq_len(.Zahn.parm$m)] 
-    sum(.Zahn.parm$coef * abs.c)
+Zahn_pse = function(effects, parm) {
+    abs.c = sort(abs(effects))[seq_len(parm$m)] 
+    sum(parm$coef * abs.c)
+}
+attr(Zahn_pse, "setup") = function(n.effects) {
+    m = floor(.683*n.effects + .5)
+    q = (seq_len(m) - .375) / (n.effects + .25)
+    z = stats::qnorm((1 + q)/2)
+    list(m = m, coef = z / sum(z^2))
 }
 
 # Weighted version of Zahn
-WZahn_pse = function(effects) {
-    abs.c = sort(abs(effects))[seq_len(.Zahn.parm$m)] 
-    sum(.Zahn.parm$wcoef * abs.c)
-}
-
-# Setup routine for Zahn methods. 
-# Improves efficiency in simulation methods
-.Zahn.setup = function(n.effects) {
-    m = floor(.683*n.effects + .5)
-    q = (seq_len(m) - .375) / (n.effects + .25)
-    z = qnorm((1 + q)/2)
-    w = m + .5 - seq_len(m)
-    w[w > .65 * m] = .65 * m
-    .Zahn.parm <<- list(m = m, 
-                        coef = z / sum(z^2),
-                        wcoef = w*z / sum(w*z^2))
-}
-attr(Zahn_pse, "setup") = function(n.effects) {
-    .Zahn.setup(n.effects)
+WZahn_pse = function(effects, parm) {
+    abs.c = sort(abs(effects))[seq_len(parm$m)] 
+    sum(parm$coef * abs.c)
 }
 attr(WZahn_pse, "setup") = function(n.effects) {
-    .Zahn.setup(n.effects)
+    m = floor(.683*n.effects + .5)
+    q = (seq_len(m) - .375) / (n.effects + .25)
+    z = stats::qnorm((1 + q)/2)
+    w = m + .5 - seq_len(m)
+    w[w > .65 * m] = .65 * m
+    list(m = m, weight = w, coef = w*z / sum(w*z^2))
 }
+
+
+
+
 
 
 
@@ -113,18 +119,22 @@ attr(WZahn_pse, "setup") = function(n.effects) {
 # If called with save = TRUE, result is saved in global variable .Last.ref.dist
 ref.dist = function(method, n.effects, nsets, save = TRUE) {
     psefun = get(paste0(method, "_pse"))
-    # run setup code, if any
-    if (!is.null(setup <- attr(psefun, "setup")))
-        setup(n.effects)
     sig = paste(method, n.effects, sep="_")
     if(missing(nsets))
         nsets = ceiling(40000 / n.effects)
     X = matrix(rnorm(n.effects * nsets), nrow = n.effects) # each column is a sample
-    abst = apply(X, 2, function(x) abs(x) / psefun(x))
+    # run setup code, if any
+    if (!is.null(setup <- attr(psefun, "setup"))) {
+        parm = setup(n.effects)
+        abst = apply(X, 2, function(x) abs(x) / psefun(x, parm))
+    }
+    else
+        abst = apply(X, 2, function(x) abs(x) / psefun(x))
     max.abst = apply(abst, 2, max)
     result = list(abst = abst, max.abst = max.abst, sig = sig)
     class(result) = "eff_refdist"
-    if (save) .Last.ref.dist <<- result
+    if (save) 
+        assign(".Last.ref.dist", result, envir = .GlobalEnv)
     result
 }
 

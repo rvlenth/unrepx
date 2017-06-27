@@ -8,7 +8,7 @@
 
 \usage{
 refplot(effects, ref = TRUE, half = TRUE, method = "Zahn", 
-    xlab, col = half, pch = 16, guides = FALSE, ID = FALSE, ...)
+    col = half, guides = FALSE, ID = FALSE, pch = 16, xlab, xlim, ...)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -20,11 +20,10 @@ A character value matching \code{"normal"} or \code{"simulated"} is also permitt
 , a kernel density estimate is displayed; it is obtained by scaling the simulated reference distribution for \code{"method"} by its observed PSE. }
   \item{half}{Logical value. If \code{TRUE}, a dot plot of the absolute effects is constructed. If \code{FALSE}, the original signed effects are plotted.}
   \item{method}{Character value. When \code{ref} is not false, the method to use in determining the PSE for scaling the reference curve (and also the method used for simulating the referemnce distribution when \code{ref = "simulated"}). This must be the name of a provided pseudo-standard-error method (see \code{\link{PSE}}), or a compatible user-supplied one.}
-  \item{xlab}{Character label for the horizontal axis.}
   \item{col}{Scalar or vector of colors; or a logical value. If logical, a value of \code{TRUE} colors the positive effects blue, the negative effects red, and any zeros as black. A logical value of \code{FALSE} colors them all black.}
-  \item{pch}{Plotting character(s) to use in the dot plot.}
+  \item{guides}{Logical value. If \code{TRUE}, dotted lines are added that illustrate guide lines that could be used to draw the normal curve by hand.}
   \item{ID}{Logical value. If \code{TRUE}, then after the plot is contructed, the \code{\link{dot.id}} invoked so that the user may click on points to be labeled on the plot.}
-  \item{\dots}{Additional graphical parameters (see \code{\link{par}}) passed to \code{\link{dot.plot}}.}
+  \item{pch, xlab, xlim, \dots}{Additional graphical parameters (see \code{\link{par}}) passed to \code{\link{dot.plot}}.}
 }
 
 \details{
@@ -32,9 +31,8 @@ If the returned environment is saved, then \code{\link{dot.id}} or \code{\link{d
 \value{
 An environment that can be modified using \code{\link{dot.id}} or \code{\link{dot.mod}}.
 }
-\references{
-%% ~put references to the literature/web site here ~
-}
+
+%%\references{ }
 
 \author{
 Russell V. Lenth
@@ -51,9 +49,13 @@ Other ways of assessing active effects include a half-normal plot (\code{\link{h
 
 \examples{
 require(unrepx)
+
 refplot(pdEff)
 
-# Batman livespdEffProcDev, ref = "sim", method = "Lenth", half = FALSE)
+\dontrun{
+    # Batman lives!
+    refplot(pdEff, ref = "sim", method = "Lenth", half = FALSE)
+}
 }
 
 \keyword{design}

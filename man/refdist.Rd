@@ -17,6 +17,7 @@ eff.test(effects, method = "Zahn", pareto = TRUE, refdist, save = TRUE)
   \item{n.effects}{Integer number of effects estimated.}
   \item{nsets}{The number of complete-null samples of size \code{n.effects} to be simulated. If omitted, \code{nsets} is determined so that the total number of simulated effects is about 40,000.}
   \item{save}{Logical value. If \code{TRUE}, the simulated reference distribution is saved in the workspace under \code{.Last.ref.dist}. Other routines in this package try to avoid re-simulating a reference distribution if \code{.Last.refdist} exists and matches the current \code{method} and \code{n.effects}.}
+  \item{effects}{Vector of observed effects to be tested against the reference distribution.}
   \item{pareto}{Logical value. If \code{TRUE}, the effects are presented in decreasing order of their absolute size.}
   \item{refdist}{A result of a previous call to \code{ref.dist}, in case the user wishes to manually supply a previously simulated reference distribution. Note however that \code{eff.test} will automatically reuse \code{.Last.ref.dist} if it is available and matches.}
 }
@@ -30,9 +31,8 @@ eff.test(effects, method = "Zahn", pareto = TRUE, refdist, save = TRUE)
   \code{ref.dist} returns an object of class \code{"eff_refdist"} -- structurally, a \code{list} with elements \code{abst} (the absolute values of the simulated \eqn{t} statistics), \code{max.abst} (the sample maxima of \code{abst}), and \code{sig} (a signature of the form \code{method_n.effects}). There is a \code{print} method for this class that displays a summary.
 
   \code{eff.test} returns a \code{data.frame} containing the estimates, \eqn{t ratios}, and estimated P values as tail areas of \code{abst} and \code{max.abst} from the reference distribution.}
-\references{
-%% ~put references to the literature/web site here ~
-}
+  
+%%\references{}
 
 \author{
 Russell V. Lenth
@@ -42,9 +42,8 @@ Russell V. Lenth
 
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 
-\seealso{
-%% ~~objects to See Also as \code{\link{help}}, ~~~
-}
+%%\seealso{}
+
 \examples{
 require("unrepx")
 

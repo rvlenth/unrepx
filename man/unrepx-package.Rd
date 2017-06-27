@@ -21,8 +21,8 @@ Russell V. Lenth
 
 Maintainer: Russell V. Lenth <russell-lenth@uiowa.edu>
 }
-\references{
-}
+
+%%\references{}
 
 
-\keyword{ package }
+\keyword{package }
