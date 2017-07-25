@@ -107,7 +107,13 @@ attr(WZahn_pse, "setup") = function(n.effects) {
 
 
 
-
+## Margin of error and SME
+ME = function(effects, method = "Zahn", alpha = .05, ...) {
+    pse = PSE(effects, method)
+    rd = .getrefdist(length(effects), method, ...)
+    c(ME = pse * quantile(rd$abst, 1 - alpha), 
+      SME = pse * quantile(rd$max.abst, 1 - alpha))
+}
 
 
 

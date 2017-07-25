@@ -70,8 +70,21 @@ hnplot = function(effects, ref = TRUE, half = TRUE, horiz = TRUE, method = "Zahn
     else
         efflim = range(eff)
     
-    if(ID && is.null(names(abseff)))
-        names(abseff) = seq_along(abseff)
+    if (is.numeric(ID)) {
+        thresh = ID[1]
+        ID = TRUE
+    }
+    else
+        thresh = Inf
+    
+    if(ID) {
+        if (is.null(names(abseff)))
+            names(abseff) = seq_along(abseff)
+        idx = which(abseff >= thresh)          # indices to auto-ID
+        if (!is.infinite(thresh) && (length(idx) == 0))
+            ID = FALSE
+    }
+        
 
     if(horiz) {
         plot(score ~ eff, xlim = efflim, ylab = slab, xlab = elab, col = col, pch = pch, ...)
@@ -81,8 +94,13 @@ hnplot = function(effects, ref = TRUE, half = TRUE, horiz = TRUE, method = "Zahn
             sapply(MEs, function(xx) abline(v = xx, lty = 2))
             axis(3, at = MEs, labels = MElabs, cex.axis = .75)
         }
-        if (ID)
-            identify(eff, score, labels = names(abseff))
+        if (ID) {
+            if (is.infinite(thresh)) 
+                identify(eff, score, labels = names(abseff))
+            else
+                text(eff[idx], score[idx], names(abseff[idx]), 
+                     pos = sapply(sign(eff[idx]), function(s) ifelse(s>0, 2, 4)))
+        }
     }
     else {
         plot(eff ~ score, ylim = efflim, xlab = slab, ylab = elab, col = col, pch = pch, ...)
@@ -92,8 +110,13 @@ hnplot = function(effects, ref = TRUE, half = TRUE, horiz = TRUE, method = "Zahn
             sapply(MEs, function(xx) abline(h = xx, lty = 2))
             axis(4, at = MEs, labels = MElabs, cex.axis = .75)
         }
-        if (ID)
-            identify(score, eff, labels = names(abseff))
+        if (ID) {
+            if (is.infinite(thresh))
+                identify(score, eff, labels = names(abseff))
+            else
+                text(score[idx], eff[idx], names(abseff[idx]),
+                     pos = sapply(sign(eff[idx]), function(s) ifelse(s>0, 1, 3)))
+        }
     }
     if (!half && ref) {
         abline(h = 0, lty = 3, col = "darkgray")
@@ -268,8 +291,23 @@ refplot = function(effects, ref = TRUE, half = TRUE, method = "Zahn",
         }
     }
     
-    if (ID)
-        dot.id(env)
+    if (is.numeric(ID)) {
+        thresh = ID[1]
+        ID = TRUE
+    }
+    else
+        thresh = Inf
+    
+    if (ID) {
+        if (is.infinite(thresh))
+            dot.id(env)
+        else {
+            env$x.id = effects[abs(effects) >= thresh]
+            env$height.id = 2
+            env$cex.id = 1
+            env$col.id = "black"
+        }
+    }
 
     invisible(env)
 }

@@ -22,7 +22,7 @@ A character value matching \code{"normal"} or \code{"simulated"} is also permitt
   \item{method}{Character value. When \code{ref} is not false, the method to use in determining the PSE for scaling the reference curve (and also the method used for simulating the referemnce distribution when \code{ref = "simulated"}). This must be the name of a provided pseudo-standard-error method (see \code{\link{PSE}}), or a compatible user-supplied one.}
   \item{col}{Scalar or vector of colors; or a logical value. If logical, a value of \code{TRUE} colors the positive effects blue, the negative effects red, and any zeros as black. A logical value of \code{FALSE} colors them all black.}
   \item{guides}{Logical value. If \code{TRUE}, dotted lines are added that illustrate guide lines that could be used to draw the normal curve by hand.}
-  \item{ID}{Logical value. If \code{TRUE}, then after the plot is contructed, the \code{\link{dot.id}} invoked so that the user may click on points to be labeled on the plot.}
+  \item{ID}{Logical value. If logical and \code{TRUE}, then after the plot is contructed, the \code{\link{dot.id}} invoked so that the user may click on points to be labeled on the plot. If a numeric value is given, it is used as a threshold by which all effects greater than \code{ID[1]} in absolute value are labeled.}
   \item{pch, xlab, xlim, \dots}{Additional graphical parameters (see \code{\link{par}}) passed to \code{\link{dot.plot}}.}
 }
 
@@ -50,7 +50,7 @@ Other ways of assessing active effects include a half-normal plot (\code{\link{h
 \examples{
 require(unrepx)
 
-refplot(pdEff)
+refplot(pdEff, ID = ME(pdEff))
 
 \dontrun{
     # Batman lives!

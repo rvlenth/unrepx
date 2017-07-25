@@ -22,7 +22,7 @@ hnplot(effects, ref = TRUE, half = TRUE, horiz = TRUE, method = "Zahn",
   \item{col}{Scalar or vector of colors; or a logical value. If logical, a value of \code{TRUE} colors the positive effects blue, the negative effects red, and any zeros as black. A logical value of \code{FALSE} colors them all black.}
   \item{pch}{Plotting character(s) to use.}
   \item{alpha}{Numeric value. If specified, a null reference distribution for \code{method} is used (see \code{\link{ref.dist}}) to determine a margin of error (labeled \sQuote{ME}) and simultaneous margin of error (labeled \sQuote{SME}) corresponding to a significance level of \code{alpha}, and reference lines are added to the plot at those positions as an aid to assessing the statistical significance of the effects. This is based on a suggestion in Mee (2015). These reference lines are omitted when \code{alpha} is left unspecified.}
-  \item{ID}{Logical value. If \code{TRUE}, then after the plot is contructed, the plot is put in \code{\link{identify}} mode, where the user may click on points to be labeled on the plot.}
+  \item{ID}{Logical or numeric value. If logical and \code{TRUE}, then after the plot is contructed, the plot is put in \code{\link{identify}} mode, where the user may click on points to be labeled on the plot. If a numeric value is supplied, it is used as a threshold by which all effects greater than \code{ID[1]} in absolute value are labeled.}
   \item{\dots}{Additional graphical parameters (see \code{\link{par}}) used in constructing the plot.}
 }
 
@@ -57,7 +57,7 @@ Other ways of assessing active effects include a dot plot with a reference curve
 \examples{
 require("unrepx")
 
-hnplot(pdEff)
+hnplot(pdEff, ID = ME(pdEff))
 }
 
 \keyword{design}

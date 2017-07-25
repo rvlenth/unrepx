@@ -11,7 +11,7 @@ importFrom("grDevices", "dev.interactive", "recordGraphics")
 export(daniel.paper, 
        dot.plot, dot.id, dot.mod,
        hnplot, parplot, refplot,
-       PSE, 
+       PSE, ME,
        eff.test, ref.dist,
        bikeEff, pdEff, shnkEff, shnkDisp, viseEff,
        yates, gyates)
