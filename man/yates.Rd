@@ -54,7 +54,7 @@ Yates's Algorithm. \emph{Encyclopedia of Biostatistics}, 8. Wiley.
 
 Good, IJ (1958)
 The interaction algorithm and practical Fourier analysis.
-\emph{Journal of the Royal Statistical Society, Series B} 20, 361–372.
+\emph{Journal of the Royal Statistical Society, Series B} 20, 361-372.
 
 Yates, F (1937) The design and analysis of factorial experiments. Technical Communication of the Commonwealth Bureau of Soils, 35, Commonwealth Agricultural Bureau, Farnham Royal
 }
