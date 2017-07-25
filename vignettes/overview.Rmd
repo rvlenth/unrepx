@@ -1,12 +1,14 @@
 ---
-output: 
-  html_document: 
-    keep_md: yes
+vignette: >
+  %\VignetteIndexEntry{Overview of the unrepx package}
+  %\VignetteEngine{knitr::knitr}
 ---
-# **unrepx** package for R: Analysis of unreplicated experiments
 
-#### Developer/maintainer
-Russ Lenth, University of Iowa, `russell-lenth@uiowa.edu`
+# **unrepx** package for R: 
+## Analysis of unreplicated experiments
+
+Developer/maintainer:
+Russ Lenth, The University of Iowa, `russell-lenth@uiowa.edu`
 
 ## Introduction
 The **unrepx** package provides much of what one needs to analyze basic unreplicated
@@ -42,7 +44,7 @@ yates(pilotEff)
 **unrepx** provides three graphical tools for helping to identify active effects: *[half]-normal plots*, *reference plots*, and *Pareto plots*. 
 
 Half-normal and normal plots are available via `hnplot()` (see details in its help page). Here is a half-normal plot of the effects we just computed, with labels added for all those that exceed 10:
-```{r, fig.width=5}
+```{r, fig.width=5, fig.height=5}
 hnplot(pilotEff, ID = 10)
 title("Half-normal plot of the pilot-plant effects")
 ```

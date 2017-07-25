@@ -1,5 +1,6 @@
 ^.*\.Rproj$
 ^\.Rproj\.user$
 testData.R
-README.rmd
 README.html
+README.md
+README_files

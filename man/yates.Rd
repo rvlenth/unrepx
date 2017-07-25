@@ -5,7 +5,7 @@
 
 \title{Yates's algorithm}
 \description{
-Implementations os Yates's method for obtaining factor effects; and reverse Yates's method for recovering response values; and a generalization for balanced unreplicated experiments having other than two-level factors.
+Implementations of Yates's method for obtaining factor effects; and reverse Yates's method for recovering response values; and a generalization for balanced unreplicated experiments having other than two-level factors.
 }
 \usage{
 yates(y, labels = LETTERS, sep = "")

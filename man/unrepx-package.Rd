@@ -14,7 +14,7 @@ Provides half-normal plots, reference plots, and Pareto plots
     measures, simulated reference distributions, and other tools
 }
 \details{
-See the package overview in \url{https://github.com/rvlenth/unrepx/blob/master/README.md}
+See the package vignette: \code{vignette("overview", package="unrepx")}
 }
 \author{
 Russell V. Lenth
