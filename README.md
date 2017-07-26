@@ -20,6 +20,6 @@ install.packages("unrepx")
 
 * To install the latest development version from Github, have the newest **devtools** package installed, then run
 ```
-devtools::install_github("rvlenth/unrepx", dependencies = TRUE)
+devtools::install_github("rvlenth/unrepx", dependencies = TRUE, build_vignettes = TRUE)
 ```
 For latest release notes on this development version, see the [NEWS file](https://github.com/rvlenth/unrepx/blob/master/inst/NEWS)
