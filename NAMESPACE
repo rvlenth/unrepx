@@ -1,7 +1,7 @@
 ### exportPattern("^[[:alpha:]]+")
 
 importFrom("stats", 
-           "median", "poly", "qnorm", "quantile", "rnorm")
+           "median", "contr.helmert", "contr.poly", "qnorm", "quantile", "rnorm")
 importFrom("graphics",
            "abline", "axis", "barplot", "identify", "lines",
            "par", "plot", "points", "text", "title")

@@ -123,6 +123,7 @@ ME = function(effects, method = "Zahn", alpha = .05, ...) {
 #    max.abst: dist on max(|t|) (vector of length nsets)
 #    signature of form 'methodName_n.effects'
 # If called with save = TRUE, result is saved in global variable .Last.ref.dist
+#                                   update: in options("unrepx.lastrefdist")
 ref.dist = function(method, n.effects, nsets, save = TRUE) {
     psefun = get(paste0(method, "_pse"))
     sig = paste(method, n.effects, sep="_")
@@ -139,8 +140,9 @@ ref.dist = function(method, n.effects, nsets, save = TRUE) {
     max.abst = apply(abst, 2, max)
     result = list(abst = abst, max.abst = max.abst, sig = sig)
     class(result) = "eff_refdist"
-    if (save) 
-        assign(".Last.ref.dist", result, envir = .GlobalEnv)
+    if (save)
+        options(unrepx.lastrefdist = result)
+        #assign(".Last.ref.dist", result, envir = .GlobalEnv)
     result
 }
 
@@ -155,9 +157,10 @@ print.eff_refdist = function(x, ...) {
 # Get last ref.dist if it matches, else generate a new one
 # May specify arguments in a list 'opts' rather than as arguments
 .getrefdist = function(n.effects, method, nsets, save = TRUE, opts) {
-    refdist = try(get(".Last.ref.dist"), silent = TRUE)
-    if (inherits(refdist, "try-error")) 
-        refdist = list(sig = "")
+    #refdist = try(get(".Last.ref.dist"), silent = TRUE)
+    #if (inherits(refdist, "try-error")) 
+    #    refdist = list(sig = "")
+    refdist = getOption("unrepx.lastrefdist", list(sig = ""))
     sig = paste(method, n.effects, sep = "_")
     if(refdist$sig != sig) {
         if (!missing(opts)) {
@@ -186,3 +189,5 @@ eff.test = function(effects, method = "Zahn", pareto = TRUE, refdist, save = TRU
     names(result)[2] = paste0(method, "_PSE")
     result
 }
+
+

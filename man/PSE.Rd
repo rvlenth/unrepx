@@ -42,7 +42,7 @@ If the user-supplied function needs to use weights, coefficients, or other param
   \item{Lenth}{The SMedian method, applied after excluding all effects that exceed \code{2.5 * PSE(effects, "SMedian")} in absolute value. See Lenth (1989).}
   \item{RMS}{Square root of the mean of the squared effects. This is not a good PSE in the presence of active effects, but it is provided for sake of comparisons.}
   \item{SMedian}{1.5 times the median of the absolute effects.}
-  \item{Zahn, WZahn}{The Zahn method is the slope of the least-squares line fitted to the first \eqn{m} points of \code{hnplot(effects, horiz = FALSE)}, where \code{m = floor(.683 * length(effects))}. (This line is fitted through the origin.) The WZahn method is an experimental version of Zahn's method, based on weighted least-squares with weights decreasing linearly from \eqn{m - .5} to \eqn{.5}.}
+  \item{Zahn, WZahn}{The Zahn method is the slope of the least-squares line fitted to the first \eqn{m} points of \code{hnplot(effects, horiz = FALSE)}, where \code{m = floor(.683 * length(effects))}. (This line is fitted through the origin.) The WZahn method is an experimental version of Zahn's method, based on weighted least-squares with weights decreasing linearly from \eqn{m - .5} to \eqn{.5}, but bounded above by \eqn{.65m}.}
   
 }}
 %end of "methods"

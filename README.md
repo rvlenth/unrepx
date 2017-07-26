@@ -10,7 +10,7 @@ error. The analyses are based on underlying assumptions that the effect estimate
 
 The package provides basic functions `yates()` and `gyates()` for estimating effects; plotting functions `hnplot()` (half-normal plot), `refplot()` (reference plot), and `parplot()` (Pareto plot) for displaying effects and depicting which may be active; and statistical analysis functions `PSE()` (pseudo standard error), `ME()` (margin of error), `ref.dist()` (reference distribution), and `eff.test()` (tests of effects). The `dot.plot()` function that underlies `ref.plot()` is also usable in its own right for creating resizeable dot plots. There are also example effect estimates, and a function for creating half-normal graph paper.
 
-To see an overview of these features, use `vignette("overview", package = "unrepx")`.
+To see an overview of these features, use `vignette("overview", package = "unrepx")`. You may also view it [here](https://github.com/rvlenth/unrepx/blob/master/vignettes/overview.Rmd), but without the graphs
 
 ## Installation
 * To install latest version from CRAN (once it is available there), run 
