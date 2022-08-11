@@ -1,14 +1,14 @@
 ---
+title: "**unrepx** package for R"
+subtitle: "Analysis of unreplicated experiments"
+author: "Russ Lenth"
+date: "Version `r packageVersion('unrepx')` -- `r utils::packageDescription('unrepx')$Date`"
 vignette: >
   %\VignetteIndexEntry{Overview of the unrepx package}
-  %\VignetteEngine{knitr::knitr}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
 ---
 
-# **unrepx** package for R: 
-## Analysis of unreplicated experiments
-
-Developer/maintainer:
-Russ Lenth, The University of Iowa, `russell-lenth@uiowa.edu`
 
 ## Introduction
 The **unrepx** package provides much of what one needs to analyze basic unreplicated
