@@ -1,11 +1,12 @@
 Package: unrepx
 Type: Package
 Title: Analysis and Graphics for Unreplicated Experiments
-Version: 1.0-2
-Date: 2022-08-11
+Version: 1.0-3
+Date: 2024-06-09
 Authors@R: c(person("Russell", "Lenth", role = c("aut", "cre", "cph"), 
     email = "russell-lenth@uiowa.edu"))
 LazyData: no
+URL: https://github.com/rvlenth/unrepx,https://rvlenth.github.io/unrepx/
 BugReports: https://github.com/rvlenth/unrepx/issues
 Description: Provides half-normal plots, reference plots, and Pareto plots
     of effects from an unreplicated experiment, along with various 

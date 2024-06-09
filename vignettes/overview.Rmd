@@ -3,6 +3,7 @@ title: "**unrepx** package for R"
 subtitle: "Analysis of unreplicated experiments"
 author: "Russ Lenth"
 date: "Version `r packageVersion('unrepx')` -- `r utils::packageDescription('unrepx')$Date`"
+output: emmeans::.emm_vignette
 vignette: >
   %\VignetteIndexEntry{Overview of the unrepx package}
   %\VignetteEngine{knitr::rmarkdown}

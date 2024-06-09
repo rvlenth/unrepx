@@ -3,6 +3,8 @@
 #### Developer/maintainer
 Russ Lenth, University of Iowa, `russell-lenth@uiowa.edu`
 
+URL: https://rvlenth.github.io/unrepx/
+
 The **unrepx** package provides much of what one needs to analyze basic unreplicated
 screening experiments such as two-level factorial and fractional factorial designs,
 in which one has a set of independent effect estimates but no degrees of freedom for

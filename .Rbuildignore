@@ -5,3 +5,6 @@ README.html
 README.md
 README_files
 
+^_pkgdown\.yml$
+^docs$
+^pkgdown$

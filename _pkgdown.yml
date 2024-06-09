@@ -1,0 +1,28 @@
+url: https://rvlenth.github.io/unrepx/
+template:
+  bootstrap: 5
+
+reference:
+- title: Package overview
+  contents:
+  - unrepx-package
+  
+- title: Analysis
+  contents:
+  - PSE
+  - ref.dist
+  - yates
+
+- title: Graphical assessment
+  contents:
+  - dot.plot
+  - hnplot
+  - parplot
+  - refplot
+  - daniel.paper
+  
+- title: Data and examples
+  contents:
+  - pdEff
+  
+
