@@ -1,9 +1,10 @@
 # **unrepx** package for R: Analysis of unreplicated experiments
 
+URL: https://rvlenth.github.io/unrepx/
+
+
 #### Developer/maintainer
 Russ Lenth, University of Iowa, `russell-lenth@uiowa.edu`
-
-URL: https://rvlenth.github.io/unrepx/
 
 The **unrepx** package provides much of what one needs to analyze basic unreplicated
 screening experiments such as two-level factorial and fractional factorial designs,
